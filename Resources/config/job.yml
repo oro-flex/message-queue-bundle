@@ -9,7 +9,7 @@ services:
     oro_message_queue.job.manager:
         class: 'Oro\Bundle\MessageQueueBundle\Job\JobManager'
         arguments:
-            - '@oro_entity.doctrine_helper'
+            - '@doctrine'
             - '@oro_message_queue.job.unique_job_handler'
             - '@event_dispatcher'
 

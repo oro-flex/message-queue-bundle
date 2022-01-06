@@ -7,6 +7,7 @@ use Doctrine\DBAL\LockMode;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\EntityBundle\ORM\DoctrineHelper;
 use Oro\Bundle\MessageQueueBundle\Entity\Job as JobEntity;
 use Oro\Component\MessageQueue\Event\AfterSaveJobEvent;
@@ -21,8 +22,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class JobManager implements JobManagerInterface
 {
-    /** @var DoctrineHelper */
-    private $doctrineHelper;
+    /** @var ManagerRegistry */
+    private $registry;
 
     /** @var UniqueJobHandler */
     private $uniqueJobHandler;
@@ -31,11 +32,11 @@ class JobManager implements JobManagerInterface
     private $eventDispatcher;
 
     public function __construct(
-        DoctrineHelper $doctrineHelper,
+        ManagerRegistry $registry,
         UniqueJobHandler $uniqueJobHandler,
         EventDispatcherInterface $eventDispatcher
     ) {
-        $this->doctrineHelper = $doctrineHelper;
+        $this->registry = $registry;
         $this->uniqueJobHandler = $uniqueJobHandler;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -258,6 +259,6 @@ class JobManager implements JobManagerInterface
 
     private function getEntityManager(): EntityManager
     {
-        return $this->doctrineHelper->getEntityManager(JobEntity::class);
+        return $this->registry->getManagerForClass(JobEntity::class);
     }
 }

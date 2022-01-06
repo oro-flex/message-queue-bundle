@@ -34,7 +34,8 @@ class RequestWatcher implements EventSubscriberInterface
 
     public function onRequestStart(RequestEvent $event): void
     {
-        if (!$event->isMainRequest()) {
+        $isMainRequest = method_exists($event, 'isMainRequest') ? $event->isMainRequest() : $event->isMasterRequest();
+        if (!$isMainRequest) {
             return;
         }
         if (!$this->producer->isBufferingEnabled()) {

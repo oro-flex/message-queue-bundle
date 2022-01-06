@@ -21,6 +21,8 @@ class FlexDependenciesPass implements CompilerPassInterface
         $this->cleanLocaleBundleDependency($container);
         $this->cleanEntityExtendBundleDependency($container);
         $this->cleanUserBundleDependency($container);
+        $this->cleanCronBundleDependency($container);
+        $this->cleanConfigBundleDependency($container);
     }
 
     private function cleanMaintenanceBundleDependency(ContainerBuilder $container)
@@ -34,6 +36,8 @@ class FlexDependenciesPass implements CompilerPassInterface
     {
         if (!class_exists('\Oro\Bundle\SecurityBundle\OroSecurityBundle')) {
             $this->remove('oro_message_queue.consumption.security_aware_extension', $container);
+            $this->remove('oro_message_queue.job.security_aware_extension', $container);
+            $this->remove('oro_message_queue.client.security_aware_driver_factory', $container);
         }
     }
 
@@ -48,6 +52,7 @@ class FlexDependenciesPass implements CompilerPassInterface
     {
         if (!class_exists('\Oro\Bundle\PlatformBundle\OroPlatformBundle')) {
             $this->remove('oro_message_queue.platform.optional_listener_extension', $container);
+            $this->remove('oro_message_queue.platform.optional_listener_driver_factory', $container);
         }
     }
 
@@ -69,6 +74,21 @@ class FlexDependenciesPass implements CompilerPassInterface
     {
         if (!class_exists('\Oro\Bundle\UserBundle\OroUserBundle')) {
             $this->remove('oro_message_queue.listener.authentication', $container);
+        }
+    }
+
+    private function cleanCronBundleDependency(ContainerBuilder $container)
+    {
+        if (!class_exists('\Oro\Bundle\CronBundle\OroCronBundle')) {
+            $this->remove('Oro\Bundle\MessageQueueBundle\Command\CleanupCommand', $container);
+            $this->remove('Oro\Bundle\MessageQueueBundle\Command\ConsumerHeartbeatCommand', $container);
+        }
+    }
+
+    private function cleanConfigBundleDependency(ContainerBuilder $container)
+    {
+        if (!class_exists('\Oro\Bundle\ConfigBundle\OroConfigBundle')) {
+            $this->remove('oro_message_queue.async.change_config', $container);
         }
     }
 
