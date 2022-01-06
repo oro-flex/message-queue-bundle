@@ -1,0 +1,45 @@
+{
+    "name": "oro-flex/message-queue-bundle",
+    "description": "OroMessageQueueBundle incorporates the OroMessageQueue component into OroPlatform and thereby provides message queue processing capabilities for all application components.",
+    "homepage": "https://github.com/oroinc/platform/tree/master/src/Oro/Bundle/MessageQueueBundle",
+    "license": "MIT",
+    "authors": [
+	    {
+            "name": "Nikita Makarov",
+            "email": "mesaverde228@gmail.com"
+        },
+        {
+            "name": "Oro, Inc",
+            "homepage": "https://oroinc.com/"
+        }
+    ],
+    "require": {
+        "php": "~7.4.14 || ~8.0.0",
+        "oro-flex/message-queue": "5.0.*",
+        "oro-flex/batch-bundle": "5.0.*",
+        "doctrine/doctrine-bundle": "^2.5.0",
+        "doctrine/orm": "^2.9.0",
+        "symfony/translation": "*"
+    },
+    "require-dev": {
+    },
+    "conflict": {
+        "oro/platform": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "symfony": {
+            "require": "5.4.*"
+        },
+        "branch-alias": {
+            "dev-master": "5.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Oro\\Bundle\\MessageQueueBundle\\": ""
+        },
+        "exclude-from-classmap": ["/Tests/"]
+    }
+}
