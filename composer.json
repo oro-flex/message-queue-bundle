@@ -15,8 +15,9 @@
     ],
     "require": {
         "php": "~7.4.14 || ~8.0.0",
-        "oro-flex/message-queue": "5.0.*",
-        "oro-flex/batch-bundle": "5.0.*",
+        "oro-flex/message-queue": "4.2.*",
+        "oro-flex/dependency-injection": "4.2.*",
+        "oro-flex/batch-bundle": "4.2.*",
         "doctrine/doctrine-bundle": "^2.5.0",
         "doctrine/orm": "^2.9.0",
         "symfony/translation": "*"
@@ -30,10 +31,10 @@
     "prefer-stable": true,
     "extra": {
         "symfony": {
-            "require": "5.4.*"
+            "require": "4.4.*"
         },
         "branch-alias": {
-            "dev-master": "5.0-dev"
+            "dev-master": "4.2-dev"
         }
     },
     "autoload": {

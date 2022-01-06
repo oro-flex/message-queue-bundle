@@ -60,7 +60,7 @@ services:
     oro_message_queue.client.message_processor_registry:
         class: 'Oro\Component\MessageQueue\Client\MessageProcessorRegistry'
         arguments:
-            - !abstract message processors defined in BuildMessageProcessorRegistryPass
+            - ~ # !abstract message processors defined in BuildMessageProcessorRegistryPass
         tags: ['container.service_locator']
 
     oro_message_queue.client.meta.topic_meta_registry:
@@ -74,7 +74,7 @@ services:
         public: true
         arguments:
             - '@oro_message_queue.client.config'
-            - $messageProcessorsByQueue: !abstract defined in BuildDestinationMetaRegistryPass
+            - $messageProcessorsByQueue: ~ #!abstract defined in BuildDestinationMetaRegistryPass
 
     oro_message_queue.client.meta.topic_description_provider:
         class: 'Oro\Component\MessageQueue\Client\Meta\TopicDescriptionProvider'

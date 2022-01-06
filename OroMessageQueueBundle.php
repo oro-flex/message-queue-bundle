@@ -10,6 +10,7 @@ use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\BuildMonologHandl
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\BuildTopicMetaRegistryPass;
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\ConfigureClearersPass;
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\ConfigureDbalTransportExtensionsPass;
+use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\FlexDependenciesPass;
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\MakeAnnotationReaderServicesPersistentPass;
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\Compiler\MakeLoggerServicesPersistentPass;
 use Oro\Bundle\MessageQueueBundle\DependencyInjection\OroMessageQueueExtension;
@@ -19,6 +20,7 @@ use Oro\Component\DependencyInjection\Compiler\TaggedServiceTrait;
 use Oro\Component\MessageQueue\Event\AfterSaveJobEvent;
 use Oro\Component\MessageQueue\Event\BeforeSaveJobEvent;
 use Oro\Component\MessageQueue\Job\Topics;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\DependencyInjection\AddEventAliasesPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -67,5 +69,7 @@ class OroMessageQueueBundle extends Bundle
             BeforeSaveJobEvent::class => BeforeSaveJobEvent::EVENT_ALIAS,
             AfterSaveJobEvent::class => AfterSaveJobEvent::EVENT_ALIAS,
         ]));
+
+        $container->addCompilerPass(new FlexDependenciesPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, PHP_INT_MAX);
     }
 }
